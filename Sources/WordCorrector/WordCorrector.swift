@@ -3,7 +3,12 @@ import Foundation
 
 public struct WordCorrector {
     public private(set) var wordDictionary: [String]
-    public var calculator: WordDistanceCalculator = .jamo
+    public private(set) var calculator: WordDistanceCalculator
+
+    public init(wordDictionary: [String]) {
+        self.wordDictionary = wordDictionary
+        calculator = .jamo
+    }
 
     public func correct(word: String, threshold: Double = 10) -> String? {
         let map = correctMap(of: word)
