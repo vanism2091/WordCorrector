@@ -5,8 +5,6 @@ public enum WordDistanceCalculator {
     case jamo
     case character
 
-    private static var maxDouble: Double { 999 }
-
     func calculate(word1: String, word2: String, debugMode: Bool = false) -> Double {
         switch self {
         case .character:
