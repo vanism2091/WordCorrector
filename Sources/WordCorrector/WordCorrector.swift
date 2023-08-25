@@ -7,7 +7,7 @@ public struct WordCorrector {
 
     public init(wordDictionary: [String]) {
         self.wordDictionary = wordDictionary
-        calculator = .jamo
+        calculator = .jamo 
     }
 
     public func correct(word: String, threshold: Double = 10) -> String? {
