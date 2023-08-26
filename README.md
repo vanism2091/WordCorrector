@@ -7,3 +7,6 @@ To install this package, import https://github.com/vanism2091/WordCorrector in S
 
 ## Usage Example
 
+
+## References
+https://lovit.github.io/nlp/2018/08/28/levenshtein_hangle/

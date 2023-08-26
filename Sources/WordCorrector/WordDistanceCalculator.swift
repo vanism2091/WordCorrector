@@ -27,8 +27,9 @@ public enum WordDistanceCalculator {
         for (i, character1) in word1.enumerated() {
             var currentRow = [Double(i)+1]
             for (j, character2) in word2.enumerated() {
-                let insertions = previousRow[j+1] + 1
-                let deletions = currentRow[j] + 1
+                let currentCost = character2 == " " ? 0.5 : 1
+                let insertions = previousRow[j+1] + currentCost
+                let deletions = currentRow[j] + currentCost
                 let substitutions = previousRow[j] + substitutionCostForJamoLevenshtein(character1, character2)
                 currentRow.append(min(insertions, deletions, substitutions))
             }
@@ -45,6 +46,7 @@ public enum WordDistanceCalculator {
 
     private static func substitutionCostForJamoLevenshtein(_ character1: Character, _ character2: Character) -> Double {
         if character1 == character2 { return 0 }
+        if character1 == " " || character2 == " " { return 0.5 }
         guard let component1 = KoreanDecomposer.decompose(character1),
               let component2 = KoreanDecomposer.decompose(character2) else {
             return 999
@@ -79,8 +81,9 @@ public enum WordDistanceCalculator {
         for (i, character1) in word1.enumerated() {
             var currentRow: [Double] = [Double(i) + 1]
             for (j, character2) in word2.enumerated() {
-                let insertions = previousRow[j+1] + 1
-                let deletions = currentRow[j] + 1
+                let currentCost = character2 == " " ? 0.5 : 1
+                let insertions = previousRow[j+1] + currentCost
+                let deletions = currentRow[j] + currentCost
                 let substitutions = previousRow[j] + substitutionCostForLevenshtein(first: character1, second: character2, in: cost)
                 currentRow.append(min(insertions, deletions, substitutions))
             }
@@ -96,6 +99,7 @@ public enum WordDistanceCalculator {
 
     private static func substitutionCostForLevenshtein(first character1: Character, second character2: Character, in costDictionary: CostDictionary) -> Double {
         if character1 == character2 { return 0 }
+        if " " == character1 || " " == character2 { return 0.5 }
         return costDictionary[CharacterPair(first: character1, second: character2)] ?? 1
     }
 }
