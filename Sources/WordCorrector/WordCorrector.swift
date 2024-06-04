@@ -5,9 +5,9 @@ public struct WordCorrector {
     public private(set) var wordDictionary: [String]
     public private(set) var calculator: WordDistanceCalculator
 
-    public init(wordDictionary: [String]) {
+    public init(wordDictionary: [String], calculator: WordDistanceCalculator = .jamo) {
         self.wordDictionary = wordDictionary
-        calculator = .jamo 
+        self.calculator = calculator
     }
 
     public func correct(word: String, threshold: Double = 10) -> String? {
